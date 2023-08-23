@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class MainServlet extends HttpServlet {
     private List<String> validPaths;
@@ -18,7 +19,7 @@ public class MainServlet extends HttpServlet {
 
     @Override
     public void init() {
-        final var repository = new PostRepository();
+        final var repository = new PostRepository(new ConcurrentHashMap<>());
         final var service = new PostService(repository);
         controller = new PostController(service);
         validPaths = List.of("/api/posts", "/api/posts/\\d+");

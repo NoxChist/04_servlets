@@ -1,5 +1,7 @@
 package ru.netology.repository;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import ru.netology.model.Post;
 
 import java.util.Comparator;
@@ -9,9 +11,16 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 // Stub
+@Repository
 public class PostRepository {
     private ConcurrentHashMap<Long, Post> postMap = new ConcurrentHashMap<>();
     private AtomicLong cnt;
+
+    @Autowired
+    public PostRepository() {
+        this.postMap = new ConcurrentHashMap<>();
+        cnt = new AtomicLong(0);
+    }
 
     public PostRepository(ConcurrentHashMap<Long, Post> postMap) {
         this.postMap = postMap;
